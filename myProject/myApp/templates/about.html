@@ -1,116 +1,79 @@
-{% extends "base.html" %} {% block title %}Contact Us{% endblock %} {% block
-content %}
+{% extends "base.html" %}
+{% block content %}
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-<!-- Bootstrap CDN -->
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-/>
-
-<style>
-  .fade-in {
-    animation: fadeIn 1.5s ease-in;
-  }
-
-  .slide-right {
-    animation: slideRight 1.2s ease-out;
-  }
-
-  .form-control:focus {
-    box-shadow: none;
-    border-color: #0d6efd;
-  }
-
-  .btn-animate {
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-
-  .btn-animate:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideRight {
-    from {
-      transform: translateX(-40px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-</style>
-
-<div class="container my-5 fade-in">
-  <div class="text-center mb-5">
-    <h1 class="fw-bold">Contact Us</h1>
-    <p class="text-muted mt-3">
-      Have a question or project in mind? Let’s talk.
-    </p>
+<section class="relative bg-gradient-to-r from-purple-100 via-blue-100 to-green-100 py-16 px-8 overflow-hidden">
+  <!-- SVG Pattern Background -->
+  <div class="absolute inset-0 w-full h-full -z-10">
+    <svg class="w-full h-full" viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+      <defs>
+        <pattern id="dots" patternUnits="userSpaceOnUse" width="40" height="40" patternTransform="rotate(45)">
+          <circle cx="10" cy="10" r="2" fill="#3B82F6" opacity="0.1" />
+        </pattern>
+      </defs>
+      <rect width="1440" height="800" fill="url(#dots)" />
+    </svg>
   </div>
 
-  <div class="row g-5 align-items-center">
-    <div class="col-md-5 slide-right">
-      <h4 class="fw-semibold mb-3">Get in Touch</h4>
-      <p>
-        We are always open to discussing new ideas, feedback, or potential
-        collaborations. Reach out anytime during business hours.
+  <!-- Content Container -->
+  <div class="max-w-7xl mx-auto relative z-20 grid md:grid-cols-2 gap-12 items-center">
+    <!-- Text Content -->
+    <div class="p-8 bg-white bg-opacity-90 rounded-xl shadow-lg backdrop-blur-lg hover:scale-105 transform transition duration-300 ease-in-out">
+      <h2 class="text-4xl font-extrabold text-gray-800 mb-4">About Us</h2>
+      <p class="text-gray-600 mb-6 text-lg">
+        We craft innovative digital experiences that elevate your brand and inspire your audience. Our passionate team leverages creativity and cutting-edge technology to bring your vision to life with precision and style.
       </p>
-
-      <ul class="list-unstyled">
-        <li class="mb-2"><strong>Email:</strong> contact@example.com</li>
-        <li class="mb-2"><strong>Phone:</strong> +977 9800000000</li>
-        <li class="mb-2"><strong>Location:</strong> Kathmandu, Nepal</li>
-      </ul>
-
-      <p class="text-muted">Monday – Friday: 9:00 AM to 6:00 PM</p>
-    </div>
-
-    <div class="col-md-7 slide-right">
-      <div class="card p-4 shadow-sm">
-        <h4 class="fw-semibold mb-3">Send a Message</h4>
-        <form method="post">
-          {% csrf_token %}
-
-          <div class="mb-3">
-            <label class="form-label">Full Name</label>
-            <input type="text" class="form-control" name="name" required />
+      <div class="space-y-6">
+        <!-- Card for each feature -->
+        <div class="flex items-center space-x-4 p-4 bg-gradient-to-tr from-purple-200 via-blue-200 to-green-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+          <div class="p-3 bg-white rounded-full shadow-lg hover:scale-110 transform transition duration-300">
+            <!-- Icon: Users -->
+            <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17 20v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2H17z" />
+              <circle cx="12" cy="8" r="4" />
+            </svg>
           </div>
-
-          <div class="mb-3">
-            <label class="form-label">Email Address</label>
-            <input type="email" class="form-control" name="email" required />
+          <div>
+            <h3 class="text-xl font-semibold text-gray-700">Dedicated Team</h3>
+            <p class="text-gray-500 text-sm">A passionate group of experts committed to delivering excellence in every project.</p>
           </div>
+        </div>
 
-          <div class="mb-3">
-            <label class="form-label">Message</label>
-            <textarea
-              class="form-control"
-              rows="5"
-              name="message"
-              required
-            ></textarea>
+        <div class="flex items-center space-x-4 p-4 bg-gradient-to-tr from-purple-200 via-blue-200 to-green-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+          <div class="p-3 bg-white rounded-full shadow-lg hover:scale-110 transform transition duration-300">
+            <!-- Icon: Lightbulb -->
+            <svg class="w-6 h-6 text-yellow-500" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M9 21h6v-1H9v1zm3-18a4 4 0 00-4 4c0 1.38.56 2.63 1.46 3.54A5.978 5.978 0 009 12h6a5.978 5.978 0 00-1.46-3.46A4 4 0 0015 7a4 4 0 00-4-4z" />
+            </svg>
           </div>
+          <div>
+            <h3 class="text-xl font-semibold text-gray-700">Innovative Approach</h3>
+            <p class="text-gray-500 text-sm">We embrace creativity and technology to craft unique solutions tailored for you.</p>
+          </div>
+        </div>
 
-          <button type="submit" class="btn btn-primary btn-animate">
-            Send Message
-          </button>
-        </form>
+        <div class="flex items-center space-x-4 p-4 bg-gradient-to-tr from-purple-200 via-blue-200 to-green-200 rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300">
+          <div class="p-3 bg-white rounded-full shadow-lg hover:scale-110 transform transition duration-300">
+            <!-- Icon: User Group -->
+            <svg class="w-6 h-6 text-green-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M16 14c-1.33 0-2.53.53-3.41 1.39A4.993 4.993 0 0012 20c1.33 0 2.53-.53 3.41-1.39A4.993 4.993 0 0016 14zM8 14c-1.33 0-2.53.53-3.41 1.39A4.993 4.993 0 004 20c1.33 0 2.53-.53 3.41-1.39A4.993 4.993 0 008 14zM12 4c-2.21 0-4 1.79-4 4 0 1.66 1.34 3 3 3h2c1.66 0 3-1.34 3-3 0-2.21-1.79-4-4-4z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold text-gray-700">Customer Centric</h3>
+            <p class="text-gray-500 text-sm">Your satisfaction is our priority — we listen, adapt, and deliver beyond expectations.</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</div>
 
+    <!-- Image with Overlay & Hover Effect -->
+    <div class="relative p-4">
+      <div class="absolute inset-0 bg-gradient-to-br from-purple-400 via-blue-400 to-green-400 rounded-xl shadow-lg transform hover:scale-105 transition-transform duration-300"></div>
+      <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="About Us" class="relative rounded-xl shadow-xl object-cover w-full h-full hover:opacity-90 transition-opacity duration-300" />
+    </div>
+  </div>
+</section>
 {% endblock %}

@@ -1,116 +1,118 @@
 {% extends "base.html" %} {% block title %}Contact Us{% endblock %} 
 {% block content %}
+<head>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<section class="lg:flex lg:gap-5 py-10 lg:px-20 md:px-10 px-5 text-blue-950">
+        <div class="lg:w-1/2 lg:pb-0 pb-10">
+          <h2 class="text-[38px] font-bold mb-5">
+            Contact <span class="text-[#0074F2] ">Info</span>
+          </h2>
+          <p class='pb-5 lg:pr-20'>&quot;
+            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non nostrum, fugiat accusantium reiciendis magnam dolorem
+            
+            &quot;</p>
+          <div class="space-y-4">
+          
+            <div>
+              <h4 class="text-lg font-normal">Corporate Office:</h4>
 
-<!-- Bootstrap CDN -->
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-  rel="stylesheet"
-/>
-
-<style>
-  .fade-in {
-    animation: fadeIn 1.5s ease-in;
-  }
-
-  .slide-right {
-    animation: slideRight 1.2s ease-out;
-  }
-
-  /* .form-control:focus {
-    box-shadow: none;
-    border-color: #0d6efd;
-  } */
-
-  .btn-animate {
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
-  }
-
-  .btn-animate:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(13, 110, 253, 0.3);
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideRight {
-    from {
-      transform: translateX(-40px);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-</style>
-
-<div class="container my-5 fade-in">
-  <div class="text-center mb-5">
-    <h1 class="fw-bold">Contact Us</h1>
-    <p class="text-muted mt-3">
-      Have a question or project in mind? Let’s talk.
-    </p>
-  </div>
-
-  <div class="row g-5 align-items-center">
-    <div class="col-md-5 slide-right">
-      <h4 class="fw-semibold mb-3">Get in Touch</h4>
-      <p>
-        We are always open to discussing new ideas, feedback, or potential
-        collaborations. Reach out anytime during business hours.
-      </p>
-
-      <ul class="list-unstyled">
-        <li class="mb-2"><strong>Email:</strong> contact@example.com</li>
-        <li class="mb-2"><strong>Phone:</strong> +977 9800000000</li>
-        <li class="mb-2"><strong>Location:</strong> Kathmandu, Nepal</li>
-      </ul>
-
-      <p class="text-muted">Monday – Friday: 9:00 AM to 6:00 PM</p>
-    </div>
-
-    <div class="col-md-7 slide-right">
-      <div class="card p-4 shadow-sm">
-        <h4 class="fw-semibold mb-3">Send a Message</h4>
-        <form method="post">
-          {% csrf_token %}
-
-          <div class="mb-3">
-            <label class="form-label">Full Name</label>
-            <input type="text" class="form-control" name="name" required />
+              <address class="flex items-start gap-1 pt-3">
+                <IoLocationOutline className='text-blue-500 text-2xl' />
+                : Lorem ipsum dolor, sit amet consectetur adipisicing elit. Non nostrum, fugiat accusantium reiciendis magnam dolorem
+            
+            &quot;
+              </address>
+            </div>
+            <div>
+              <h4 class="text-lg font-medium">Email</h4>
+              <p class="flex items-center gap-2  hover:underline">
+                <MdOutlineEmail class='text-blue-500' />: example@gmail.com
+              </p>
+            </div>
+            <div>
+              <h4 class="text-lg font-medium ">Contact</h4>
+              <p class="flex items-center gap-2"><FaPhoneAlt className='text-blue-500' />: +91 404******</p>
+            </div>
           </div>
+        </div>
+        <div class='lg:w-1/2 flex flex-col text-blue-950 py-6 rounded-xl pt-16 lg:px-10  md:px-16 px-5 bg-slate-50 lg:pt-7'>
+            <h2 class="text-xl font-light text-blue-600 mb-6">
+                Have Questions? Contact Our Highway Consultancy Team
+            </h2>
+            <form class="space-y-2 w-full" onSubmit={handleSubmit}>
+                <div>
+                    <label
+                        htmlFor="username"
+                        class="block text-gray-600 font-semibold mb-1">
+                        Name <span class='text-red-500'>*</span>
+                    </label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter your name"       
+                        required
+                        class="w-full border-gray-300 rounded-xl px-4 py-1.5 text-gray-800 shadow-sm focus:outline-none"
+                    />
+                </div>
+                <div>
+                    <label
+                        htmlFor="mobile"
+                        class="block text-gray-600 font-semibold mb-1">
+                        Mobile Number <span class='text-red-500'>*</span>
+                    </label>
 
-          <div class="mb-3">
-            <label class="form-label">Email Address</label>
-            <input type="email" class="form-control" name="email" required />
-          </div>
-
-          <div class="mb-3">
-            <label class="form-label">Message</label>
-            <textarea
-              class="form-control"
-              rows="5"
-              name="message"
-              required
-            ></textarea>
-          </div>
-
-          <button type="submit" class="btn btn-primary btn-animate">
-            Send Message
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+                    <input
+                        type="tel"
+                        id="tel"
+                        name="tel"
+                        placeholder="phone"
+                        required
+                        class="w-full border-gray-300 rounded-xl px-4 py-1.5 text-gray-800 shadow-sm focus:outline-none"
+                    />
+                </div>
+                <div>
+                    <label
+                        htmlFor="email"
+                        className="block text-gray-600 font-semibold mb-1">
+                        Email ID <span class='text-red-500'>*</span>
+                    </label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        required
+                        class="w-full border-gray-300 rounded-xl px-4 py-1.5 text-gray-800 shadow-sm focus:outline-none"
+                    />
+                </div>
+                <div>
+                    <label
+                        htmlFor="subjects"
+                        class="block text-gray-600 font-semibold mb-1">
+                        Message
+                    </label>
+                     <input
+                        type="text"
+                        id="Message"
+                        name="Message"
+                        placeholder="Message"       
+                        required
+                        class="w-full border-gray-300 rounded-xl px-4 py-1.5 text-gray-800 shadow-sm focus:outline-none"
+                    />
+                   
+                </div>
+                <div class='flex justify-center'>
+                    <button
+                        type="submit"
+                        class="py-1 px-5 rounded-xl hover:text-blue-400 hover:border-blue-400 border-2  hover:bg-gray-50 cursor-pointer bg-blue-400 text-gray-50"
+                    >
+                        Submit
+                    </button>
+                </div>
+            </form>
+        </div>
+      </section>
 
 {% endblock %}

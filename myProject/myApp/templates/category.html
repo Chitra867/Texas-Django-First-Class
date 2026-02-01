@@ -1,43 +1,11 @@
-{% extends 'base.html' %}
-
-{% block title %}{{ category.name }}{% endblock %}
-
-{% block content %}
-<h1>{{ category.name }}</h1>
-<p>{{ category.description }}</p>
-
-<h2>Products in this category:</h2>
-<div class="product-grid">
-    {% for product in products %}
-    <div class="product-card">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description|truncatechars:100 }}</p>
-        <p>Price: ${{ product.price }}</p>
-        <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
+<div class="search-container">
+        <form method="get" action="{% url 'products' %}" class="search-form">
+            <input type="text" name="search" placeholder="Search products..." value="{{ search_query }}">
+            <button type="submit" class="btn btn-primary">
+                <i class="fas fa-search"></i> Search
+            </button>
+            {% if search_query %}
+            <a href="{% url 'products' %}" class="btn">Clear Search</a>
+            {% endif %}
+        </form>
     </div>
-    {% empty %}
-    <p>No products in this category yet.</p>
-    {% endfor %}
-</div>
-{% endblock %}{% extends 'base.html' %}
-
-{% block title %}{{ category.name }}{% endblock %}
-
-{% block content %}
-<h1>{{ category.name }}</h1>
-<p>{{ category.description }}</p>
-
-<h2>Products in this category:</h2>
-<div class="product-grid">
-    {% for product in products %}
-    <div class="product-card">
-        <h3>{{ product.name }}</h3>
-        <p>{{ product.description|truncatechars:100 }}</p>
-        <p>Price: ${{ product.price }}</p>
-        <a href="{% url 'product_detail' product.id %}" class="btn">View Details</a>
-    </div>
-    {% empty %}
-    <p>No products in this category yet.</p>
-    {% endfor %}
-</div>
-{% endblock %}

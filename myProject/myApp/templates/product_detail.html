@@ -3,20 +3,62 @@
 {% block title %}{{ product.name }}{% endblock %}
 
 {% block content %}
-<h1>{{ product.name }}</h1>
-<p>{{ product.description }}</p>
-<p>Price: ${{ product.price }}</p>
-<p>Category: {{ product.category.name }}</p>
-<p>Stock: {{ product.stock }} items available</p>
+<div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-md">
 
-{% if product.image %}
-    <img src="{{ product.image.url }}" alt="{{ product.name }}" width="300">
-{% endif %}
+    <!-- Product Title -->
+    <h1 class="text-3xl font-bold mb-4">
+        {{ product.name }}
+    </h1>
 
-<br><br>
-{% if user.is_authenticated %}
-    <a href="{% url 'add_to_cart' product.id %}" class="btn">Add to Cart</a>
-{% else %}
-    <a href="{% url 'login' %}" class="btn">Login to Add to Cart</a>
-{% endif %}
+    <!-- Category -->
+    <p class="text-sm text-gray-500 mb-2">
+        Category: {{ product.category.name|default:"Uncategorized" }}
+    </p>
+
+    <!-- Product Image -->
+    {% if product.image %}
+        <div class="mb-6">
+            <img src="{{ product.image.url }}"
+                 alt="{{ product.name }}"
+                 class="w-full max-w-md mx-auto rounded-lg">
+        </div>
+    {% endif %}
+
+    <!-- Price -->
+    <p class="text-2xl font-semibold text-green-600 mb-4">
+        ${{ product.price }}
+    </p>
+
+    <!-- Description -->
+    <div class="text-gray-700 leading-relaxed mb-6">
+        {{ product.description|linebreaks }}
+    </div>
+
+    <!-- Stock Info -->
+    <p class="mb-4">
+        <strong>Stock:</strong> {{ product.stock }} items available
+    </p>
+
+    <!-- Actions -->
+    <div class="mt-6">
+        {% if user.is_authenticated %}
+            {% if product.stock > 0 %}
+                <a href="{% url 'add_to_cart' product.id %}"
+                   class="inline-block bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">
+                    Add to Cart
+                </a>
+            {% else %}
+                <span class="text-red-600 font-semibold">
+                    Out of stock
+                </span>
+            {% endif %}
+        {% else %}
+            <a href="{% url 'login' %}?next={{ request.path }}"
+               class="inline-block bg-gray-700 text-white px-6 py-2 rounded hover:bg-gray-800">
+                Login to Add to Cart
+            </a>
+        {% endif %}
+    </div>
+
+</div>
 {% endblock %}
