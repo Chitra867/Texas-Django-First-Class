@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="bg-gray flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-lg p-6 md:p-8">
+
+        <!-- Header -->
+        <h2 class="text-2xl font-bold text-gray-800 text-center">Checkout</h2>
+        <p class="text-gray-500 text-center mt-1">Complete your purchase</p>
+
+        <!-- Product Details -->
+        {% for item in cart_items %}
+        <div class="mt-6 flex items-center space-x-4">
+            <img src="{{ item.product.image.url }}"
+                 alt="{{ item.product.name }}"
+                 class="w-20 h-20 rounded-lg shadow">
+
+            <div>
+                <h3 class="text-lg font-semibold text-gray-800">
+                    {{ item.product.name }}
+                </h3>
+                <p class="text-sm text-gray-500">
+                    Quantity: {{ item.quantity }}
+                </p>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Price Breakdown -->
+        <div class="mt-6 space-y-3">
+            <div class="flex justify-between text-gray-600">
+                <span>Subtotal</span>
+                <span>${{ total|floatformat:2 }}</span>
+            </div>
+
+            <div class="flex justify-between text-gray-600">
+                <span>Shipping</span>
+                <span class="text-green-500">Free</span>
+            </div>
+
+            <div class="flex justify-between font-semibold text-gray-800">
+                <span>Total</span>
+                <span>${{ total|floatformat:2 }}</span>
+            </div>
+        </div>
+
+        <!-- Payment Options -->
+        <div class="mt-6">
+            <label class="block text-gray-700 font-medium mb-2">
+                Payment Method
+            </label>
+
+            <div class="flex items-center space-x-3">
+                <button type="button" class="flex-1 bg-gray-100 hover:bg-gray-200 transition p-3 rounded-lg">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                         class="h-6 mx-auto">
+                </button>
+
+                <button type="button" class="flex-1 bg-gray-100 hover:bg-gray-200 transition p-3 rounded-lg">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/Visa.svg"
+                         class="h-6 mx-auto">
+                </button>
+
+                <button type="button" class="flex-1 bg-gray-100 hover:bg-gray-200 transition p-3 rounded-lg">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
+                         class="h-6 mx-auto">
+                </button>
+            </div>
+        </div>
+
+        <!-- Checkout Button -->
+        <form method="POST" action="{% url 'checkout' %}" class="mt-6">
+            {% csrf_token %}
+            <button type="submit"
+                class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-3 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+                Complete Purchase
+            </button>
+        </form>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-danger">{{ message }}</div>
+  {% endfor %}
+{% endif %}
+
+        <!-- Secure Notice -->
+        <p class="text-center text-gray-500 text-sm mt-4">
+            🔒 Secure Payment. Your information is encrypted.
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}

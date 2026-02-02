@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% load multiply %}
+
+{% block content %}
+
+<div class="py-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
+
+    <!-- Order Header -->
+    <div class="flex justify-start items-start flex-col space-y-2">
+        <h1 class="text-3xl lg:text-4xl font-semibold text-gray-800 dark:text-white">
+            Order #{{ order.id }}
+        </h1>
+        <p class="text-base font-medium text-gray-600 dark:text-gray-300">
+            {{ order.created_at|date:"j F Y, h:i A" }}
+        </p>
+    </div>
+
+    <div class="mt-10 flex flex-col xl:flex-row w-full xl:space-x-8 space-y-6 xl:space-y-0">
+
+        <!-- LEFT: ORDER ITEMS -->
+        <div class="flex flex-col w-full space-y-6">
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <p class="text-xl font-semibold text-gray-800 dark:text-white">
+                    Order Items
+                </p>
+
+                {% for item in order_items %}
+                <div class="mt-6 flex flex-col md:flex-row items-start md:items-center md:space-x-6 border-b pb-6">
+
+                    <div class="w-full md:w-32">
+                        <img class="w-full rounded"
+                             src="{{ item.product.image.url }}"
+                             alt="{{ item.product.name }}">
+                    </div>
+
+                    <div class="flex justify-between w-full mt-4 md:mt-0">
+                        <div class="flex flex-col space-y-2">
+                            <h3 class="text-lg font-semibold text-gray-800 dark:text-white">
+                                {{ item.product.name }}
+                            </h3>
+                            <p class="text-sm text-gray-600 dark:text-gray-300">
+                                Quantity: {{ item.quantity }}
+                            </p>
+                        </div>
+
+                        <div class="text-right space-y-1">
+                            <p class="text-sm text-gray-600 dark:text-gray-300">
+                                ${{ item.price|floatformat:2 }} × {{ item.quantity }}
+                            </p>
+                            <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                                ${{ item.price|floatformat:2|mul:item.quantity }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- SUMMARY -->
+            <div class="bg-gray-50 dark:bg-gray-800 p-6 rounded-lg">
+                <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
+                    Summary
+                </h3>
+
+                <div class="mt-4 space-y-3 border-b pb-4">
+                    <div class="flex justify-between">
+                        <p class="text-gray-700 dark:text-white">Subtotal</p>
+                        <p class="text-gray-600 dark:text-gray-300">
+                            ${{ order.total_price|floatformat:2 }}
+                        </p>
+                    </div>
+
+                    <div class="flex justify-between">
+                        <p class="text-gray-700 dark:text-white">Shipping</p>
+                        <p class="text-green-600">Free</p>
+                    </div>
+                </div>
+
+                <div class="flex justify-between mt-4">
+                    <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                        Total
+                    </p>
+                    <p class="text-lg font-semibold text-gray-800 dark:text-white">
+                        ${{ order.total_price|floatformat:2 }}
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: CUSTOMER INFO -->
+        <div class="bg-gray-50 dark:bg-gray-800 w-full xl:w-96 p-6 rounded-lg">
+
+            <h3 class="text-xl font-semibold text-gray-800 dark:text-white">
+                Customer Details
+            </h3>
+
+            <div class="mt-6 space-y-4">
+                <div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Name</p>
+                    <p class="text-base text-gray-800 dark:text-white">
+                        {{ request.user.username }}
+                    </p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Email</p>
+                    <p class="text-base text-gray-800 dark:text-white">
+                        {{ request.user.email }}
+                    </p>
+                </div>
+
+                <div>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Shipping Address
+                    </p>
+                    <p class="text-sm text-gray-800 dark:text-white">
+                        {{ customer.address }}<br>
+                        {{ customer.city }}, {{ customer.state }}<br>
+                        {{ customer.zip_code }}
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8">
+                <a href="{% url 'home' %}"
+                   class="block text-center border border-gray-800 dark:border-white
+                          py-3 rounded-lg text-gray-800 dark:text-white
+                          hover:bg-gray-200 dark:hover:bg-gray-700">
+                    Continue Shopping
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

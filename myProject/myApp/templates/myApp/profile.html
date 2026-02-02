@@ -31,9 +31,18 @@
                             {{ form.address }}
                         </div>
 
-                        <button type="submit" class="btn btn-primary w-100">
-                            Update Profile
-                        </button>
+                        <!-- Buttons -->
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-primary w-100">
+                                Update Profile
+                            </button>
+
+                            <!-- Skip Button -->
+                            <a href="{% url 'home' %}" class="btn btn-outline-secondary w-100">
+                                Skip
+                            </a>
+                        </div>
+
                     </form>
 
                 </div>

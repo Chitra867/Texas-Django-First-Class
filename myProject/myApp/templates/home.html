@@ -1,47 +1,178 @@
 {% extends "base.html" %}
-
 {% block title %}Home{% endblock %}
 
 {% block content %}
+<div class="container my-4">
 
-<!-- Featured Products -->
-<h2 class="text-xl font-semibold mb-4">Featured Products</h2>
-<div class="grid grid-cols-4 gap-4 mb-8">
-    {% for product in featured_products %}
-        <div class="border p-4 rounded">
-            {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="mb-2">
-            {% endif %}
-            <h3 class="font-bold">{{ product.name }}</h3>
-            <p>₹{{ product.price }}</p>
-            <a href="{% url 'add_to_cart' product.id %}"
-   class="bg-blue-600 text-white px-3 py-1 rounded">
-   Add to Cart
+    <!-- Featured Products -->
+    <h2 class="fw-bold mb-4">Featured Products</h2>
+    <div class="row g-4 mb-5">
+        {% for product in featured_products %}
+        <div class="col-md-3">
+            <div class="card h-100 product-card position-relative">
+
+                <!-- Wishlist -->
+                <a href="javascript:void(0)"
+   class="wishlist-icon toggle-wishlist"
+   data-product="{{ product.id }}">
+
+   {% if product.id in wishlist_ids %}
+       <i class="fa-solid fa-heart"></i>
+   {% else %}
+       <i class="fa-regular fa-heart"></i>
+   {% endif %}
 </a>
 
+
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top"
+                     style="height:200px; object-fit:cover;">
+                {% endif %}
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+
+                    <!-- Rating -->
+                    <div class="text-warning mb-1">
+                        {% for i in "12345" %}
+                            {% if product.rating|floatformat:0 >= i|add:"0" %}
+                                <i class="fa-solid fa-star"></i>
+                            {% else %}
+                                <i class="fa-regular fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <p class="text-success fw-semibold">₹{{ product.price }}</p>
+
+                    <!-- Views -->
+                    <a href="{% url 'product_detail' product.id %}"
+                       class="text-muted text-decoration-none">
+                        👁 {{ product.views }} Views
+                    </a>
+
+                    <!-- Stock -->
+                    <div class="mt-2">
+                        {% if product.stock > 0 %}
+                            <span class="badge bg-success">
+                                📦 {{ product.stock }} Available
+                            </span>
+                        {% else %}
+                            <span class="badge bg-danger">
+                                Out of Stock
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white border-0 text-center">
+                    {% if product.stock > 0 %}
+                    <a href="{% url 'add_to_cart' product.id %}"
+                       class="btn btn-primary w-100">
+                        Add to Cart
+                    </a>
+                    <a href="{% url 'checkout' %}?product_id={{ product.id }}"
+           class="btn btn-success w-100">
+            Buy Now
+        </a>
+                    {% else %}
+                    <button class="btn btn-secondary w-100" disabled>
+                        Out of Stock
+                    </button>
+                    {% endif %}
+                </div>
+
+            </div>
         </div>
-    {% empty %}
+        {% empty %}
         <p>No featured products</p>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 
-<!-- All Products -->
-<h2 class="text-xl font-semibold mb-4">Latest Products</h2>
-<div class="grid grid-cols-4 gap-4">
-    {% for product in products %}
-        <div class="border p-4 rounded">
-            {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="mb-2">
-            {% endif %}
-            <h3 class="font-bold">{{ product.name }}</h3>
-            <p>₹{{ product.price }}</p>
-            <a href="{% url 'add_to_cart' product.id %}"
-   class="bg-blue-600 text-white px-3 py-1 rounded">
-   Add to Cart
+    <!-- Latest Products -->
+    <h2 class="fw-bold mb-4">Latest Products</h2>
+    <div class="row g-4">
+        {% for product in products %}
+        <div class="col-md-3">
+            <div class="card h-100 product-card position-relative">
+
+                <!-- Wishlist -->
+                <a href="javascript:void(0)"
+   class="wishlist-icon toggle-wishlist"
+   data-product="{{ product.id }}">
+
+   {% if product.id in wishlist_ids %}
+       <i class="fa-solid fa-heart"></i>
+   {% else %}
+       <i class="fa-regular fa-heart"></i>
+   {% endif %}
 </a>
+
+
+
+                {% if product.image %}
+                <img src="{{ product.image.url }}" class="card-img-top"
+                     style="height:200px; object-fit:cover;">
+                {% endif %}
+
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+
+                    <!-- Rating -->
+                    <div class="text-warning mb-1">
+                        {% for i in "12345" %}
+                            {% if product.rating|floatformat:0 >= i|add:"0" %}
+                                <i class="fa-solid fa-star"></i>
+                            {% else %}
+                                <i class="fa-regular fa-star"></i>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <p class="text-success fw-semibold">₹{{ product.price }}</p>
+
+                    <a href="{% url 'product_detail' product.id %}"
+                       class="text-muted text-decoration-none">
+                        👁 {{ product.views }} Views
+                    </a>
+
+                    <div class="mt-2">
+                        {% if product.stock > 0 %}
+                            <span class="badge bg-success">
+                                📦 {{ product.stock }} Available
+                            </span>
+                        {% else %}
+                            <span class="badge bg-danger">
+                                Out of Stock
+                            </span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="card-footer bg-white border-0 text-center">
+                    {% if product.stock > 0 %}
+                    <a href="{% url 'add_to_cart' product.id %}"
+                       class="btn btn-primary w-100">
+                        Add to Cart
+                    </a>
+                    
+                    <a href="{% url 'checkout' %}?product_id={{ product.id }}"
+           class="btn btn-success w-100">
+            Buy Now
+        </a>
+                    {% else %}
+                    <button class="btn btn-secondary w-100" disabled>
+                        Out of Stock
+                    </button>
+                    {% endif %}
+                </div>
+
+            </div>
         </div>
-    {% empty %}
+        {% empty %}
         <p>No products available</p>
-    {% endfor %}
+        {% endfor %}
+    </div>
+
 </div>
 {% endblock %}

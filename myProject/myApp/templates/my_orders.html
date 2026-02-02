@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container mx-auto py-10">
+    <h1 class="text-3xl font-semibold mb-6">My Orders</h1>
+
+    {% if orders %}
+    <div class="space-y-4">
+        {% for order in orders %}
+        <div class="border p-4 rounded-lg flex justify-between items-center">
+            <div>
+                <p>Order #{{ order.id }}</p>
+                <p>Date: {{ order.created_at|date:"j F Y, h:i A" }}</p>
+                <p>Total: ${{ order.total_price|floatformat:2 }}</p>
+            </div>
+            <div>
+                <a href="{% url 'order_success' order.id %}" 
+                   class="text-blue-600 hover:underline">
+                    View Details
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>You have no orders yet.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
